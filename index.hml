@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElPinguinoDeMario | Academia de Ciberseguridad</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.min.js"></script>
+    <style>
+        :root {
+            --primary: #9d4edd; /* Morado hacker */
+            --primary-light: rgba(157, 78, 221, 0.2);
+            --primary-dark: #7b2cbf;
+            --accent: #ff6d00; /* Naranja para contraste */
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --light: #f5f5f5;
+            --lighter: #ffffff;
+            --grey: #1a1a1a;
+            --grey-light: #2a2a2a;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --discord: #5865F2;
+            --whatsapp: #25D366;
+            --youtube: #FF0000;
+            --tiktok: #000000;
+            --instagram: #E4405F;
+        }
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body {
+            color: var(--light);
+            font-family: 'IBM Plex Mono', monospace;
+            background: var(--darker);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        .matrix-bg {
+            position: fixed;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            opacity: 0.1;
+        }
+        
+        .noise-overlay {
+            position: fixed;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.1'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* Contenedor principal */
+        .container {
+            max-width: 1200px;
+            width: 92%;
+            margin: 2.5rem auto;
+            padding: 2.5rem;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            backdrop-filter: blur(8px);
+            background: rgba(10, 10, 10, 0.7);
+            border-radius: 16px;
+            border: 1px solid var(--primary-light);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 
+                        inset 0 0 20px rgba(157, 78, 221, 0.1);
+        }
+        
+        /* Header */
+        header {
+            margin-bottom: 3rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            margin: 0;
+            letter-spacing: 4px;
+            font-weight: 900;
+            text-shadow: 0 0 25px var(--primary),
+                         0 0 50px rgba(157, 78, 221, 0.5);
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            border-radius: 2px;
+        }
+        
+        .tagline {
+            color: var(--light);
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            letter-spacing: 1.5px;
+            background: rgba(157, 78, 221, 0.1);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            display: inline-block;
+            border: 1px solid var(--primary-light);
+        }
+        
+        /* Sección 3D del pingüino */
+        .penguin-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: rgba(20, 20, 20, 0.6);
+            border-radius: 16px;
+            border: 1px solid var(--primary-light);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .penguin-container {
+            width: 100%;
+            height: 500px;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 40px rgba(157, 78, 221, 0.3);
+        }
+        
+        #penguin3d {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a0a, #1a0a2e);
+        }
+        
+        .penguin-info {
+            max-width: 800px;
+            text-align: center;
+        }
+        
+        .penguin-info h2 {
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(157, 78, 221, 0.5);
+        }
+        
+        .penguin-info p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        /* Botones principales */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--lighter);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            padding: 1.2rem 2.5rem;
+            border-radius: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 20px rgba(157, 78, 221, 0.4);
+            margin: 1rem;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(157, 78, 221, 0.6);
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
+            z-index: -1;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        /* Contenedor de enlaces */
+        .links-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+        
+        .section-title {
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin: 2.5rem 0 1.5rem 0;
+            text-align: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .section-title::before,
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            margin: 0 15px;
+        }
+        
+        /* Tarjetas de enlace */
+        .link-card {
+            background: linear-gradient(145deg, rgba(26, 26, 26, 0.9), rgba(20, 20, 20, 0.9));
+            border: 1px solid var(--grey-light);
+            border-radius: 12px;
+            padding: 1.8rem;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--light);
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        .link-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px rgba(157, 78, 221, 0.3);
+        }
+        
+        .link-icon {
+            width: 65px;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.8rem;
+            border-radius: 12px;
+            background: rgba(157, 78, 221, 0.1);
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+        
+        .link-card:hover .link-icon {
+            background: rgba(157, 78, 221, 0.2);
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .link-icon i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .link-text {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .link-title {
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: var(--lighter);
+            margin-bottom: 0.5rem;
+        }
+        
+        .link-desc {
+            font-size: 0.95rem;
+            opacity: 0.85;
+        }
+        
+        /* Redes sociales */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .social-link {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(157, 78, 221, 0.1);
+            color: var(--primary);
+            font-size: 1.8rem;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid var(--primary-light);
+        }
+        
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.1);
+            background: rgba(157, 78, 221, 0.2);
+            box-shadow: 0 5px 20px rgba(157, 78, 221, 0.4);
+        }
+        
+        .social-link.youtube { color: var(--youtube); }
+        .social-link.tiktok { color: var(--tiktok); }
+        .social-link.instagram { color: var(--instagram); }
+        
+        /* Footer */
+        footer {
+            background: rgba(15, 15, 15, 0.9);
+            padding: 2rem;
+            text-align: center;
+            margin-top: auto;
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--primary-light);
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+        }
+        
+        .footer-link {
+            color: var(--light);
+            opacity: 0.7;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        
+        .footer-link:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+        
+        .copyright {
+            margin-top: 1.5rem;
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+        
+        /* Efectos de partículas */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+        
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .pulse {
+            animation: pulse 3s infinite;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            h1 { font-size: 3.2rem; }
+            .container { padding: 2rem; }
+            .penguin-container { height: 400px; }
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .tagline { font-size: 1.2rem; }
+            .container { padding: 1.5rem; }
+            .penguin-container { height: 350px; }
+            .links-container { grid-template-columns: 1fr; }
+            .link-card { flex-direction: column; text-align: center; }
+            .link-icon { margin-right: 0; margin-bottom: 1.2rem; }
+            .section-title { font-size: 1.5rem; }
+        }
+        
+        @media (max-width: 480px) {
+            h1 { font-size: 2rem; }
+            .tagline { font-size: 1rem; padding: 0.8rem 1.2rem; }
+            .btn-primary { padding: 1rem 1.8rem; font-size: 1rem; }
+            .penguin-container { height: 300px; }
+            .social-link { width: 60px; height: 60px; font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo de partículas -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Fondo Matrix -->
+    <canvas class="matrix-bg" id="matrix"></canvas>
+    <div class="noise-overlay"></div>
+    
+    <!-- Contenido principal -->
+    <div class="container">
+        <header>
+            <h1 class="floating">ElPinguinoDeMario</h1>
+            <p class="tagline pulse">Academia de Ciberseguridad & Hacking Ético</p>
+        </header>
+        
+        <!-- Sección del pingüino 3D -->
+        <section class="penguin-section">
+            <div class="penguin-container">
+                <div id="penguin3d"></div>
+            </div>
+            
+            <div class="penguin-info">
+                <h2>Conviértete en un experto en ciberseguridad</h2>
+                <p>Aprende hacking ético, pentesting y seguridad informática con metodología práctica y contenidos actualizados. Domina las técnicas más demandadas del mercado con la guía de un experto.</p>
+                
+                <a href="https://www.elrincondelhacker.es/" target="_blank" class="btn-primary">
+                    <i class="fas fa-graduation-cap"></i> Acceder a la Academia
+                </a>
+            </div>
+        </section>
+        
+        <!-- Enlaces principales -->
+        <h3 class="section-title">Recursos Principales</h3>
+        <div class="links-container">
+            <a href="https://www.elrincondelhacker.es/" target="_blank" class="link-card">
+                <div class="link-icon">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <div class="link-text">
+                    <p class="link-title">Academia Online</p>
+                    <p class="link-desc">Cursos completos de ciberseguridad, hacking ético y pentesting</p>
+                </div>
+            </a>
+            
+            <a href="https://tusendadigital.com/" target="_blank" class="link-card">
+                <div class="link-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <div class="link-text">
+                    <p class="link-title">Web Profesional</p>
+                    <p class="link-desc">Servicios de desarrollo web y seguridad digital de alta calidad</p>
+                </div>
+            </a>
+            
+            <a href="https://www.youtube.com/@ElPinguinoDeMario" target="_blank" class="link-card">
+                <div class="link-icon">
+                    <i class="fab fa-youtube"></i>
+                </div>
+                <div class="link-text">
+                    <p class="link-title">YouTube</p>
+                    <p class="link-desc">Tutoriales gratuitos, laboratorios y análisis de seguridad</p>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Redes sociales -->
+        <h3 class="section-title">Sígueme en Redes</h3>
+        <div class="social-links">
+            <a href="https://www.youtube.com/@ElPinguinoDeMario" target="_blank" class="social-link youtube">
+                <i class="fab fa-youtube"></i>
+            </a>
+            
+            <a href="https://www.tiktok.com/@elpinguinodemario?lang=es" target="_blank" class="social-link tiktok">
+                <i class="fab fa-tiktok"></i>
+            </a>
+            
+            <a href="https://www.instagram.com/elpinguinodemario/" target="_blank" class="social-link instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+        
+        <!-- CTA final -->
+        <div style="margin: 3rem 0;">
+            <h2 style="color: var(--light); margin-bottom: 1.5rem; font-size: 2rem;">¿Listo para comenzar tu viaje en ciberseguridad?</h2>
+            <a href="https://www.elrincondelhacker.es/" target="_blank" class="btn-primary" style="font-size: 1.4rem; padding: 1.5rem 3rem;">
+                <i class="fas fa-rocket"></i> Comenzar Ahora
+            </a>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">ElPinguinoDeMario</div>
+            <p>Academia especializada en formación de ciberseguridad y hacking ético</p>
+            
+            <div class="footer-links">
+                <a href="https://www.elrincondelhacker.es/" class="footer-link" target="_blank">Academia</a>
+                <a href="https://tusendadigital.com/" class="footer-link" target="_blank">Web Profesional</a>
+                <a href="#" class="footer-link" onclick="alert('Política de privacidad en desarrollo')">Privacidad</a>
+                <a href="#" class="footer-link" onclick="alert('Términos y condiciones en desarrollo')">Términos</a>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2024 ElPinguinoDeMario. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Efecto Matrix (modificado para morado)
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(5, 5, 10, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#9d4edd';
+            ctx.font = `${fontSize}px monospace`;
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        
+        setInterval(drawMatrix, 35);
+        
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Sistema de partículas
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Posición aleatoria
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Tamaño aleatorio
+                const size = Math.random() * 4 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Opacidad aleatoria
+                particle.style.opacity = Math.random() * 0.7 + 0.3;
+                
+                // Animación
+                const duration = Math.random() * 20 + 10;
+                particle.style.animation = `float ${duration}s ease-in-out infinite`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Pingüino 3D optimizado con Three.js
+        function initPenguin3D() {
+            const container = document.getElementById('penguin3d');
+            
+            // Verificar si Three.js está disponible
+            if (typeof THREE === 'undefined') {
+                container.innerHTML = `
+                    <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, #0a0a0a, #1a0a2e);">
+                        <div style="text-align: center; padding: 2rem;">
+                            <div style="font-size: 5rem; color: #9d4edd; margin-bottom: 1rem;">🐧</div>
+                            <h3 style="color: #9d4edd; font-family: 'Orbitron', sans-serif;">ElPinguinoDeMario</h3>
+                            <p style="color: #f5f5f5; margin-top: 1rem;">Experto en Ciberseguridad</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
+            try {
+                // Crear escena
+                const scene = new THREE.Scene();
+                
+                // Crear cámara
+                const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+                camera.position.z = 5;
+                
+                // Crear renderizador
+                const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+                renderer.setSize(container.clientWidth, container.clientHeight);
+                renderer.setClearColor(0x000000, 0);
+                container.appendChild(renderer.domElement);
+                
+                // Añadir luz
+                const ambientLight = new THREE.AmbientLight(0x9d4edd, 0.5);
+                scene.add(ambientLight);
+                
+                const directionalLight = new THREE.DirectionalLight(0x9d4edd, 0.8);
+                directionalLight.position.set(5, 5, 5);
+                scene.add(directionalLight);
+                
+                // Crear pingüino simple (optimizado)
+                const penguinGroup = new THREE.Group();
+                
+                // Cuerpo
+                const bodyGeometry = new THREE.SphereGeometry(1, 32, 32);
+                const bodyMaterial = new THREE.MeshPhongMaterial({ 
+                    color: 0x1a1a1a,
+                    shininess: 30
+                });
+                const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+                penguinGroup.add(body);
+                
+                // Barriga
+                const bellyGeometry = new THREE.SphereGeometry(0.7, 32, 32);
+                const bellyMaterial = new THREE.MeshPhongMaterial({ 
+                    color: 0xf5f5f5,
+                    shininess: 30
+                });
+                const belly = new THREE.Mesh(bellyGeometry, bellyMaterial);
+                belly.position.y = -0.2;
+                penguinGroup.add(belly);
+                
+                // Ojos
+                const eyeGeometry = new THREE.SphereGeometry(0.15, 16, 16);
+                const eyeMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
+                
+                const leftEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+                leftEye.position.set(0.3, 0.2, 0.8);
+                penguinGroup.add(leftEye);
+                
+                const rightEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+                rightEye.position.set(-0.3, 0.2, 0.8);
+                penguinGroup.add(rightEye);
+                
+                // Pupilas
+                const pupilGeometry = new THREE.SphereGeometry(0.07, 16, 16);
+                const pupilMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
+                
+                const leftPupil = new THREE.Mesh(pupilGeometry, pupilMaterial);
+                leftPupil.position.set(0.3, 0.2, 0.95);
+                penguinGroup.add(leftPupil);
+                
+                const rightPupil = new THREE.Mesh(pupilGeometry, pupilMaterial);
+                rightPupil.position.set(-0.3, 0.2, 0.95);
+                penguinGroup.add(rightPupil);
+                
+                // Pico
+                const beakGeometry = new THREE.ConeGeometry(0.2, 0.5, 8);
+                const beakMaterial = new THREE.MeshPhongMaterial({ color: 0xff6d00 });
+                const beak = new THREE.Mesh(beakGeometry, beakMaterial);
+                beak.position.set(0, -0.1, 1);
+                beak.rotation.x = Math.PI / 2;
+                penguinGroup.add(beak);
+                
+                scene.add(penguinGroup);
+                
+                // Animación
+                let rotationSpeed = 0.005;
+                let mouseX = 0;
+                let mouseY = 0;
+                
+                // Seguimiento de ratón
+                document.addEventListener('mousemove', (event) => {
+                    mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+                    mouseY = (event.clientY / window.innerHeight) * 2 - 1;
+                });
+                
+                // Función de animación
+                function animate() {
+                    requestAnimationFrame(animate);
+                    
+                    // Rotación automática con influencia del ratón
+                    penguinGroup.rotation.y += rotationSpeed + mouseX * 0.01;
+                    penguinGroup.rotation.x += mouseY * 0.005;
+                    
+                    // Efecto de flotación
+                    penguinGroup.position.y = Math.sin(Date.now() * 0.002) * 0.2;
+                    
+                    renderer.render(scene, camera);
+                }
+                
+                // Ajustar tamaño en redimensionamiento
+                window.addEventListener('resize', () => {
+                    camera.aspect = container.clientWidth / container.clientHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(container.clientWidth, container.clientHeight);
+                });
+                
+                animate();
+                
+            } catch (error) {
+                console.error('Error al cargar el pingüino 3D:', error);
+                container.innerHTML = `
+                    <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, #0a0a0a, #1a0a2e);">
+                        <div style="text-align: center; padding: 2rem;">
+                            <div style="font-size: 5rem; color: #9d4edd; margin-bottom: 1rem;">🐧</div>
+                            <h3 style="color: #9d4edd; font-family: 'Orbitron', sans-serif;">ElPinguinoDeMario</h3>
+                            <p style="color: #f5f5f5; margin-top: 1rem;">Experto en Ciberseguridad</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        // Efectos de interacción para botones
+        document.querySelectorAll('.btn-primary, .link-card, .social-link').forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            element.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+            });
+        });
+        
+        // Inicializar cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            initPenguin3D();
+            
+            // Efecto de escritura para el título
+            const title = document.querySelector('h1');
+            const originalText = title.textContent;
+            title.textContent = '';
+            
+            let i = 0;
+            const typeWriter = () => {
+                if (i < originalText.length) {
+                    title.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
+            };
+            
+            // Iniciar efecto de escritura después de un breve retraso
+            setTimeout(typeWriter, 500);
+        });
+    </script>
+</body>
+</html>
