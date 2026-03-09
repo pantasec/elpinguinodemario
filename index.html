@@ -2,239 +2,1074 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Introducción a la Ciberseguridad</title>
-    <style>
-        body {
-            background-color: #000000;
-            color: #FFFFFF;
-            font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-            padding: 0;
-            line-height: 1.5;
-        }
-        h1, h2, h3 {
-            color: #FF6600;
-            text-transform: uppercase;
-        }
-        .page {
-            width: 80%;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #111111;
-            border: 1px solid #FF6600;
-            box-shadow: 0 0 10px #FF6600;
-            page-break-after: always;
-        }
-        ul {
-            list-style-type: square;
-            color: #FF6600;
-        }
-        li {
-            color: #FFFFFF;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        th, td {
-            border: 1px solid #FF6600;
-            padding: 10px;
-            text-align: left;
-            color: #FFFFFF;
-        }
-        th {
-            background-color: #FF6600;
-            color: #000000;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 20px auto;
-            border: 2px solid #FF6600;
-        }
-        .cta {
-            background-color: #FF6600;
-            color: #000000;
-            padding: 15px;
-            text-align: center;
-            font-size: 1.5em;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-        @media print {
-            .page {
-                page-break-after: always;
-                box-shadow: none;
-                border: none;
-            }
-            body {
-                background-color: #FFFFFF;
-                color: #000000;
-            }
-            h1, h2, h3 {
-                color: #FF6600;
-            }
-            .page {
-                background-color: #FFFFFF;
-            }
-            th {
-                background-color: #FF6600;
-                color: #000000;
-            }
-            td {
-                color: #000000;
-            }
-            img {
-                border: none;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introducción a la Ciberseguridad — LionxSecurity</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&family=Orbitron:wght@400;700;900&display=swap');
+  :root {
+    --orange: #FF6600;
+    --orange-light: #FF8C00;
+    --orange-glow: rgba(255,102,0,0.15);
+    --black: #000000;
+    --dark: #0A0A0A;
+    --card: #111111;
+    --card2: #161616;
+    --white: #FFFFFF;
+    --gray: #AAAAAA;
+    --gray-dark: #555555;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0A0A0A;
+    font-family: 'Rajdhani', sans-serif;
+    color: var(--white);
+  }
+  /* ======= PAGE WRAPPER ======= */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    background: var(--dark);
+    margin: 0 auto 8mm auto;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+  }
+  /* ===== GRID BACKGROUND ===== */
+  .page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,102,0,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,102,0,0.04) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .page-inner {
+    position: relative;
+    z-index: 1;
+    padding: 12mm 14mm;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  /* ===== PAGE NUMBERS ===== */
+  .page-num {
+    position: absolute;
+    bottom: 8mm;
+    right: 14mm;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--orange);
+    letter-spacing: 3px;
+    z-index: 10;
+  }
+  /* ===== HEADER BAR ===== */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--orange);
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+  }
+  .top-bar .brand {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--orange);
+    text-transform: uppercase;
+  }
+  .top-bar .tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    color: var(--gray-dark);
+    letter-spacing: 2px;
+  }
+  /* ===== SCAN LINE DECORATION ===== */
+  .scanline {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--orange), transparent);
+    margin: 8px 0;
+    opacity: 0.6;
+  }
+  /* ===== ORANGE CORNER ACCENT ===== */
+  .corner-tl {
+    position: absolute;
+    top: 8mm;
+    left: 8mm;
+    width: 20px;
+    height: 20px;
+    border-top: 2px solid var(--orange);
+    border-left: 2px solid var(--orange);
+    z-index: 5;
+  }
+  .corner-br {
+    position: absolute;
+    bottom: 16mm;
+    right: 8mm;
+    width: 20px;
+    height: 20px;
+    border-bottom: 2px solid var(--orange);
+    border-right: 2px solid var(--orange);
+    z-index: 5;
+  }
+  /* ========================================
+     PAGE 1 — PORTADA
+  ======================================== */
+  .cover {
+    background: #000000;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .cover .page-inner {
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+  }
+  .cover-eyebrow {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 8px;
+    color: var(--orange);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .cover-icon {
+    font-size: 70px;
+    margin-bottom: 14px;
+    filter: drop-shadow(0 0 20px rgba(255,102,0,0.8));
+  }
+  .cover-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--orange);
+    text-transform: uppercase;
+    line-height: 1.1;
+    letter-spacing: 2px;
+    text-shadow: 0 0 30px rgba(255,102,0,0.5);
+    margin-bottom: 6px;
+  }
+  .cover-title-sub {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--white);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .cover-divider {
+    width: 120px;
+    height: 2px;
+    background: var(--orange);
+    margin: 0 auto 18px;
+    box-shadow: 0 0 10px var(--orange);
+  }
+  .cover-subtitle {
+    font-size: 17px;
+    color: var(--gray);
+    max-width: 130mm;
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+  .cover-badge {
+    display: inline-block;
+    background: var(--orange);
+    color: #000;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 6px 18px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .cover-img-wrap {
+    width: 100%;
+    height: 62mm;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 18px;
+  }
+  .cover-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    opacity: 0.55;
+    filter: brightness(0.7) contrast(1.2) saturate(0.4) sepia(0.2) hue-rotate(-10deg);
+  }
+  .cover-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(10,10,10,0.85));
+  }
+  .cover-stats-row {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    margin-top: 6px;
+  }
+  .cover-stat {
+    text-align: center;
+  }
+  .cover-stat .num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    color: var(--orange);
+    font-weight: 700;
+  }
+  .cover-stat .lbl {
+    font-size: 10px;
+    color: var(--gray);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .cover-stat-sep {
+    width: 1px;
+    background: var(--gray-dark);
+    align-self: stretch;
+  }
+  /* ========================================
+     PAGE 2 — ¿QUÉ ES LA CIBERSEGURIDAD?
+  ======================================== */
+  .section-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 5px;
+    color: var(--orange);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .section-title span { color: var(--orange); }
+  .lead-text {
+    font-size: 15px;
+    color: var(--gray);
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+  .card {
+    background: var(--card);
+    border-left: 3px solid var(--orange);
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    border-radius: 0 4px 4px 0;
+  }
+  .card-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    color: var(--orange);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .card p {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .mini-card {
+    background: var(--card);
+    border: 1px solid #222;
+    border-top: 2px solid var(--orange);
+    padding: 10px 12px;
+    text-align: center;
+    border-radius: 2px;
+  }
+  .mini-card .icon { font-size: 22px; margin-bottom: 4px; }
+  .mini-card .label {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.4;
+  }
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .tag-pill {
+    background: var(--orange-glow);
+    border: 1px solid rgba(255,102,0,0.3);
+    color: var(--orange);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    padding: 4px 10px;
+    letter-spacing: 1px;
+    border-radius: 2px;
+  }
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(255,102,0,0.12) 0%, rgba(255,102,0,0.05) 100%);
+    border: 1px solid rgba(255,102,0,0.25);
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .highlight-box::before {
+    content: '//';
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    color: var(--orange);
+    opacity: 0.4;
+  }
+  .highlight-box p {
+    font-size: 14px;
+    color: var(--white);
+    line-height: 1.6;
+  }
+  .highlight-box strong { color: var(--orange); }
+  /* ========================================
+     PAGE 3 — IMPACTO / ESTADÍSTICAS
+  ======================================== */
+  .stat-big {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+  .stat-big .num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 44px;
+    font-weight: 900;
+    color: var(--orange);
+    text-shadow: 0 0 20px rgba(255,102,0,0.4);
+    line-height: 1;
+  }
+  .stat-big .unit {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    color: var(--orange-light);
+  }
+  .stat-desc {
+    font-size: 13px;
+    color: var(--gray);
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .stat-box {
+    background: var(--card);
+    border: 1px solid #1f1f1f;
+    border-bottom: 2px solid var(--orange);
+    padding: 14px 10px;
+    text-align: center;
+  }
+  .stat-box .big {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    color: var(--orange);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .stat-box .desc {
+    font-size: 11px;
+    color: var(--gray);
+    line-height: 1.4;
+  }
+  /* Imagen de estadísticas */
+  .img-block {
+    width: 100%;
+    border: 1px solid #1f1f1f;
+    border-left: 3px solid var(--orange);
+    overflow: hidden;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .img-block img {
+    width: 100%;
+    display: block;
+    filter: saturate(0.3) brightness(0.85) contrast(1.1);
+    transition: filter 0.3s;
+  }
+  .img-block .img-caption {
+    background: var(--card);
+    padding: 6px 10px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    color: var(--gray-dark);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  /* ========================================
+     PAGE 4 — SALARIOS
+  ======================================== */
+  .salary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 14px;
+  }
+  .salary-table thead tr {
+    background: var(--orange);
+  }
+  .salary-table thead th {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    color: #000;
+    padding: 8px 12px;
+    text-align: left;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .salary-table tbody tr {
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .salary-table tbody tr:first-child {
+    background: rgba(255,102,0,0.08);
+  }
+  .salary-table tbody tr:hover { background: #151515; }
+  .salary-table td {
+    padding: 10px 12px;
+    font-size: 14px;
+    color: var(--gray);
+  }
+  .salary-table td:first-child {
+    color: var(--white);
+    font-weight: 600;
+  }
+  .salary-table td.highlight-val {
+    color: var(--orange);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  /* Bar chart */
+  .bar-chart {
+    margin-bottom: 12px;
+  }
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 7px;
+  }
+  .bar-label {
+    width: 90px;
+    font-size: 12px;
+    color: var(--gray);
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .bar-track {
+    flex: 1;
+    height: 16px;
+    background: #111;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+  .bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--orange), var(--orange-light));
+    border-radius: 2px;
+    position: relative;
+  }
+  .bar-fill.dim {
+    background: linear-gradient(90deg, #333, #444);
+  }
+  .bar-val {
+    width: 70px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--orange);
+    flex-shrink: 0;
+  }
+  .bar-val.dim { color: var(--gray-dark); }
+  /* ========================================
+     PAGE 5 — TRABAJO REMOTO + ROLES
+  ======================================== */
+  .roles-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .role-card {
+    background: var(--card);
+    border: 1px solid #1e1e1e;
+    border-top: 2px solid var(--orange);
+    padding: 12px;
+  }
+  .role-card .role-icon { font-size: 24px; margin-bottom: 6px; }
+  .role-card .role-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    color: var(--orange);
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .role-card .role-desc {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.5;
+  }
+  .remote-img-wrap {
+    width: 100%;
+    height: 42mm;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 10px;
+    border-left: 3px solid var(--orange);
+  }
+  .remote-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.2) brightness(0.6) contrast(1.2);
+  }
+  .remote-img-wrap .overlay-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    background: linear-gradient(90deg, rgba(0,0,0,0.7), rgba(0,0,0,0.2));
+  }
+  .remote-img-wrap .overlay-text p {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    color: var(--white);
+    max-width: 100mm;
+    line-height: 1.4;
+    font-weight: 700;
+  }
+  .remote-img-wrap .overlay-text p span { color: var(--orange); }
+  .flex-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .benefit-chip {
+    flex: 1;
+    background: var(--card);
+    border: 1px solid #1e1e1e;
+    text-align: center;
+    padding: 8px 6px;
+    font-size: 11px;
+    color: var(--gray);
+    line-height: 1.4;
+  }
+  .benefit-chip .icon { font-size: 18px; display: block; margin-bottom: 4px; }
+  /* ========================================
+     PAGE 6 — CTA LIONXSECURITY
+  ======================================== */
+  .cta-page {
+    background: #000;
+  }
+  .cta-hero {
+    background: var(--orange);
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-hero::after {
+    content: '🛡';
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    font-size: 80px;
+    opacity: 0.12;
+  }
+  .cta-hero .academy-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: rgba(0,0,0,0.5);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .cta-hero .cta-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 26px;
+    font-weight: 900;
+    color: #000;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .cta-hero .cta-sub {
+    font-size: 14px;
+    color: rgba(0,0,0,0.7);
+    line-height: 1.5;
+  }
+  .cta-benefits {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .cta-benefit {
+    background: var(--card);
+    border-left: 3px solid var(--orange);
+    padding: 10px 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .cta-benefit .ico { font-size: 18px; flex-shrink: 0; }
+  .cta-benefit .txt { font-size: 12px; color: var(--gray); line-height: 1.5; }
+  .cta-benefit .txt strong { color: var(--white); display: block; font-size: 13px; margin-bottom: 2px; }
+  .cta-success {
+    background: var(--card2);
+    border: 1px solid #222;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  .cta-success p {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+  .cta-success strong { color: var(--orange); }
+  .cta-action {
+    background: #000;
+    border: 2px solid var(--orange);
+    padding: 16px 20px;
+    text-align: center;
+    position: relative;
+    margin-bottom: 10px;
+  }
+  .cta-action::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, transparent, var(--orange), transparent);
+  }
+  .cta-action .instruction {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--gray-dark);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .cta-action .keyword-button {
+    display: inline-block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 38px;
+    font-weight: 900;
+    color: #000;
+    background: var(--orange);
+    padding: 10px 30px;
+    border-radius: 4px;
+    text-decoration: none;
+    text-shadow: 0 0 20px rgba(255,102,0,0.6);
+    letter-spacing: 8px;
+    margin-bottom: 8px;
+    transition: background 0.3s;
+  }
+  .cta-action .keyword-button:hover {
+    background: var(--orange-light);
+  }
+  .cta-action .cta-footer-text {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.5;
+  }
+  .footer-brand {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #1a1a1a;
+    padding-top: 8px;
+    margin-top: auto;
+  }
+  .footer-brand .logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--orange);
+    letter-spacing: 2px;
+  }
+  .footer-brand .tagline {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    color: var(--gray-dark);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  /* ===== PRINT STYLES ===== */
+  @media print {
+    body { background: #000; margin: 0; padding: 0; }
+    .page { margin: 0; page-break-after: always; box-shadow: none; }
+    .page::before { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .keyword-button { background: var(--orange) !important; color: #000 !important; }
+  }
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+</style>
 </head>
 <body>
-    <div class="page">
-        <h1>Introducción a la Ciberseguridad</h1>
-        <p>Una de las profesiones con más futuro del mundo digital</p>
-        <h2>¿Qué es la ciberseguridad?</h2>
-        <p>La ciberseguridad es el conjunto de tecnologías, procesos y prácticas diseñadas para proteger sistemas informáticos, redes, dispositivos y datos frente a ataques digitales.</p>
-        <p>Hoy en día prácticamente todo depende de internet:</p>
-        <ul>
-            <li>Bancos</li>
-            <li>Hospitales</li>
-            <li>Empresas</li>
-            <li>Gobiernos</li>
-            <li>Redes sociales</li>
-            <li>Infraestructuras críticas</li>
-        </ul>
-        <p>Cada día se producen millones de intentos de ciberataques en todo el mundo. Los ciberdelincuentes buscan robar información, dinero o interrumpir servicios.</p>
-        <p>Por eso las organizaciones necesitan profesionales especializados que sepan proteger sus sistemas.</p>
-        <p>Aquí es donde entra la figura del experto en ciberseguridad.</p>
-        <p>Un profesional capaz de:</p>
-        <ul>
-            <li>Detectar vulnerabilidades</li>
-            <li>Prevenir ataques</li>
-            <li>Analizar incidentes</li>
-            <li>Proteger datos críticos</li>
-        </ul>
-        <p>La ciberseguridad no solo es una profesión tecnológica. Es una profesión estratégica para el futuro digital del mundo.</p>
-        <img src="https://thumbs.dreamstime.com/b/digital-lock-graphic-dark-blue-circuit-board-background-secure-computing-system-modern-tech-illustration-cyber-security-351807486.jpg" alt="Ilustración de ciberseguridad">
+<!-- =========================================
+     PÁGINA 1 — PORTADA
+========================================= -->
+<div class="page cover">
+  <div class="corner-tl"></div>
+  <div class="corner-br"></div>
+  <!-- Imagen hero portada -->
+  <div class="cover-img-wrap">
+    <img src="https://sspark.genspark.ai/cfimages?u1=SvKn3pWHQOjeSbfsz109ap4QyA9GgMTCYVpT%2BRxToMR8s%2FwIVNyOWckwMthhRWqnxMSMvZUoxFJmfQYTRodzIWs3aTIiqdi8M5dYW2J9O5pA3ccwUYH6Ji5qcXhOpjC5yF94cspKTFWP%2BKLtgog0VVc05QFQssrLHw%3D%3D&u2=fMPBu1%2F2a0DyfgxA&width=2560" alt="Ciberseguridad">
+    <div class="cover-img-overlay"></div>
+  </div>
+  <div class="page-inner" style="flex:1;">
+    <div class="cover-eyebrow">LionxSecurity — Academia de Ciberseguridad</div>
+    <div class="cover-icon">🛡️</div>
+    <div class="cover-title">INTRODUCCIÓN A LA</div>
+    <div class="cover-title-sub">CIBERSEGURIDAD</div>
+    <div class="cover-divider"></div>
+    <p class="cover-subtitle">
+      Una de las profesiones con más futuro del mundo digital.<br>
+      Descubre por qué miles de personas están reorientando su carrera hacia este sector.
+    </p>
+    <div class="cover-badge">Guía de Inicio · LionxSecurity</div>
+    <div class="cover-stats-row">
+      <div class="cover-stat">
+        <div class="num">3.5M</div>
+        <div class="lbl">Empleos sin cubrir</div>
+      </div>
+      <div class="cover-stat-sep"></div>
+      <div class="cover-stat">
+        <div class="num">+120K€</div>
+        <div class="lbl">Salario senior</div>
+      </div>
+      <div class="cover-stat-sep"></div>
+      <div class="cover-stat">
+        <div class="num">39s</div>
+        <div class="lbl">Cada ciberataque</div>
+      </div>
     </div>
-
-    <div class="page">
-        <h2>¿Por qué la ciberseguridad tiene tanto impacto?</h2>
-        <p>La digitalización ha provocado que la seguridad informática sea una prioridad mundial.</p>
-        <p>Algunos datos clave:</p>
-        <ul>
-            <li>Cada 39 segundos ocurre un ciberataque en internet.</li>
-            <li>Más del 70% de las empresas han sufrido algún incidente de seguridad.</li>
-            <li>El coste global del cibercrimen superará los 10,5 billones de dólares anuales.</li>
-        </ul>
-        <p>Esto significa algo muy importante: Las empresas necesitan más expertos en ciberseguridad de los que existen actualmente.</p>
-        <p>Se estima que actualmente hay un déficit de más de 3,5 millones de profesionales en ciberseguridad en el mundo.</p>
-        <p>Esto convierte a esta industria en una de las que más empleo genera actualmente.</p>
-        <p>Y lo más interesante: La demanda sigue creciendo cada año.</p>
-        <img src="http://cdn.statcdn.com/Infographic/images/normal/4994.jpeg" alt="Infografía de estadísticas de ciberataques">
+  </div>
+  <div class="page-num">01 / 06</div>
+</div>
+<!-- =========================================
+     PÁGINA 2 — ¿QUÉ ES LA CIBERSEGURIDAD?
+========================================= -->
+<div class="page">
+  <div class="corner-tl"></div>
+  <div class="corner-br"></div>
+  <div class="page-inner">
+    <div class="top-bar">
+      <div class="brand">LionxSecurity</div>
+      <div class="tag">// MÓDULO 01 — DEFINICIÓN</div>
     </div>
-
-    <div class="page">
-        <h2>Empleo y salarios en el sector tecnológico</h2>
-        <p>La ciberseguridad se ha convertido en uno de los sectores mejor pagados dentro del ámbito tecnológico y digital.</p>
-        <p>A continuación puedes ver una comparación aproximada de salarios medios anuales en distintos sectores:</p>
-        <table>
-            <tr><th>Sector</th><th>Salario medio</th></tr>
-            <tr><td>Ciberseguridad</td><td>40.000€ – 120.000€</td></tr>
-            <tr><td>Programación</td><td>30.000€ – 60.000€</td></tr>
-            <tr><td>Marketing</td><td>22.000€ – 35.000€</td></tr>
-            <tr><td>Administración</td><td>18.000€ – 24.000€</td></tr>
-        </table>
-        <p>Además, dentro de la ciberseguridad existen perfiles especializados que pueden superar los 120.000€ o incluso 150.000€ anuales en posiciones senior o consultoría especializada.</p>
-        <p>Esto se debe principalmente a:</p>
-        <ul>
-            <li>La escasez de profesionales cualificados</li>
-            <li>El alto impacto económico de los ciberataques</li>
-            <li>La creciente digitalización de empresas y gobiernos</li>
-        </ul>
-        <p>Por eso cada vez más personas deciden reorientar su carrera profesional hacia este sector.</p>
-        <img src="https://virtualizationreview.com/articles/2021/11/09/~/media/ECG/virtualizationreview/Images/2021/11/dice_growth.ashx" alt="Gráfico de comparación de salarios en ciberseguridad">
+    <div class="section-label">// ¿Qué es?</div>
+    <div class="section-title">La <span>CIBERSEGURIDAD</span><br>en 60 segundos</div>
+    <p class="lead-text">
+      La ciberseguridad es el conjunto de tecnologías, procesos y prácticas diseñadas para
+      <strong style="color:#fff">proteger sistemas, redes, dispositivos y datos</strong>
+      frente a ataques digitales. Hoy en día, prácticamente todo depende de internet.
+    </p>
+    <div class="tag-row">
+      <div class="tag-pill">🏦 Bancos</div>
+      <div class="tag-pill">🏥 Hospitales</div>
+      <div class="tag-pill">🏢 Empresas</div>
+      <div class="tag-pill">🏛️ Gobiernos</div>
+      <div class="tag-pill">📱 Redes Sociales</div>
+      <div class="tag-pill">⚡ Infraestructuras</div>
     </div>
-
-    <div class="page">
-        <h2>Trabaja desde cualquier lugar del mundo</h2>
-        <p>Una de las grandes ventajas de la ciberseguridad es la flexibilidad laboral.</p>
-        <p>Muchas empresas trabajan con modelos:</p>
-        <ul>
-            <li>Remoto 100%</li>
-            <li>Híbrido</li>
-            <li>Equipos internacionales</li>
-        </ul>
-        <p>Esto significa que puedes:</p>
-        <ul>
-            <li>Trabajar desde casa</li>
-            <li>Pasar más tiempo con tu familia</li>
-            <li>Viajar mientras trabajas</li>
-            <li>Convertirte en nómada digital</li>
-        </ul>
-        <p>Hoy existen profesionales de ciberseguridad que trabajan desde:</p>
-        <ul>
-            <li>España</li>
-            <li>Latinoamérica</li>
-            <li>Europa</li>
-            <li>Asia</li>
-        </ul>
-        <p>Para empresas tecnológicas de todo el mundo.</p>
-        <p>La demanda global hace que el talento sea más importante que la ubicación.</p>
-        <!-- Placeholder para imagen de nómada digital, ya que no se obtuvo -->
-        <div style="height: 300px; background-color: #222222; margin: 20px auto; text-align: center; line-height: 300px; color: #FF6600;">Espacio para Imagen: Nómada Digital en Ciberseguridad</div>
+    <div class="highlight-box">
+      <p>Cada día se producen <strong>millones de intentos de ciberataques</strong> en todo el mundo. Los ciberdelincuentes buscan robar información, dinero o interrumpir servicios críticos.</p>
     </div>
-
-    <div class="page">
-        <h2>Roles importantes dentro de la ciberseguridad</h2>
-        <p>La ciberseguridad tiene muchas especializaciones. Algunas de las más demandadas son:</p>
-        <h3>Junior Penetration Tester</h3>
-        <p>También llamado pentester. Se encarga de simular ataques informáticos para encontrar vulnerabilidades antes que los hackers.</p>
-        <h3>Consultor de Ciberseguridad</h3>
-        <p>Ayuda a empresas a:</p>
-        <ul>
-            <li>Diseñar estrategias de seguridad</li>
-            <li>Proteger infraestructuras</li>
-            <li>Cumplir normativas</li>
-        </ul>
-        <h3>Auditor de Seguridad</h3>
-        <p>Analiza sistemas y procesos para detectar fallos de seguridad y asegurar que se cumplen los estándares.</p>
-        <h3>Analista SOC (Security Operations Center)</h3>
-        <p>Trabaja monitorizando sistemas en tiempo real para detectar y responder a incidentes de seguridad. Es uno de los roles de entrada más habituales en el sector.</p>
-        <p>La ciberseguridad es un campo enorme con muchas oportunidades de crecimiento profesional.</p>
-        <img src="https://www.fortinet.com/content/dam/fortinet/images/cyberglossary/6-types-of-security-audits1.png" alt="Iconos de roles en ciberseguridad">
+    <div class="section-label" style="margin-top:8px;">// El experto en ciberseguridad es capaz de:</div>
+    <div class="grid-2">
+      <div class="mini-card">
+        <div class="icon">🔍</div>
+        <div class="label">Detectar<br>vulnerabilidades</div>
+      </div>
+      <div class="mini-card">
+        <div class="icon">🛡️</div>
+        <div class="label">Prevenir<br>ataques</div>
+      </div>
+      <div class="mini-card">
+        <div class="icon">🔬</div>
+        <div class="label">Analizar<br>incidentes</div>
+      </div>
+      <div class="mini-card">
+        <div class="icon">🔐</div>
+        <div class="label">Proteger<br>datos críticos</div>
+      </div>
     </div>
-
-    <div class="page">
-        <h2>¿Te gustaría empezar en ciberseguridad?</h2>
-        <p>Si estás leyendo esto es porque probablemente quieres dar el paso hacia un sector con más oportunidades.</p>
-        <p>En LionxSecurity, nuestra academia de ciberseguridad, ayudamos a personas que quieren entrar en este sector a:</p>
-        <ul>
-            <li>Entender cómo empezar desde cero</li>
-            <li>Saber qué certificaciones necesita su CV</li>
-            <li>Conocer las dinámicas reales de trabajo con docentes especializados</li>
-            <li>Seguir una metodología clara para entrar en el sector</li>
-        </ul>
-        <p>Contamos ya con numerosos casos de éxito de alumnos que han conseguido reorientar su carrera hacia la ciberseguridad.</p>
-        <p>Nuestro objetivo es que tengas una guía clara y una metodología concisa para avanzar paso a paso hasta conseguir tu primer empleo en ciberseguridad.</p>
-        <h3>Primera consulta gratuita</h3>
-        <p>Si quieres que estudiemos tu perfil y ver cuál sería el mejor camino para ti, escribe en el grupo la palabra:</p>
-        <div class="cta">EMPEZAR</div>
-        <p>Nuestro equipo analizará tu perfil y te ofrecerá una primera consulta gratuita para:</p>
-        <ul>
-            <li>Evaluar tu punto de partida</li>
-            <li>Resolver tus dudas sobre el sector</li>
-            <li>Diseñar un plan de formación adaptado a ti</li>
-        </ul>
-        <p>Puede ser el primer paso hacia una carrera profesional con grandes oportunidades.</p>
-        <p><strong>LionxSecurity</strong><br>Academia especializada en formación en ciberseguridad.</p>
-        <img src="https://transfotechacademy.com/wp-content/webp-express/webp-images/uploads/2023/03/Online-Cyber-Security-Training.jpg.webp" alt="Entrenamiento en academia de ciberseguridad">
+    <div class="card" style="margin-top:auto;">
+      <div class="card-title">// Conclusión clave</div>
+      <p>La ciberseguridad no es solo una profesión tecnológica. Es una <strong style="color:#fff">profesión estratégica para el futuro digital del mundo</strong>. Cada organización la necesita.</p>
     </div>
+    <div class="footer-brand">
+      <div class="logo">LIONX<span style="color:#fff">SECURITY</span></div>
+      <div class="tagline">Academia especializada en ciberseguridad</div>
+    </div>
+  </div>
+  <div class="page-num">02 / 06</div>
+</div>
+<!-- =========================================
+     PÁGINA 3 — IMPACTO GLOBAL & ESTADÍSTICAS
+========================================= -->
+<div class="page">
+  <div class="corner-tl"></div>
+  <div class="corner-br"></div>
+  <div class="page-inner">
+    <div class="top-bar">
+      <div class="brand">LionxSecurity</div>
+      <div class="tag">// MÓDULO 02 — IMPACTO GLOBAL</div>
+    </div>
+    <div class="section-label">// ¿Por qué importa tanto?</div>
+    <div class="section-title">Los <span>NÚMEROS</span> que<br>nadie puede ignorar</div>
+    <div class="stats-grid">
+      <div class="stat-box">
+        <span class="big">39s</span>
+        <span class="desc">Tiempo entre<br>ciberataques globales</span>
+      </div>
+      <div class="stat-box">
+        <span class="big">70%</span>
+        <span class="desc">Empresas con algún<br>incidente de seguridad</span>
+      </div>
+      <div class="stat-box">
+        <span class="big">3.5M</span>
+        <span class="desc">Déficit de profesionales<br>en el mundo</span>
+      </div>
+    </div>
+    <!-- Imagen estadísticas real -->
+    <div class="img-block">
+      <img src="https://sspark.genspark.ai/cfimages?u1=XmVRj0Xiasb5IK6MgWyobaDEtPbkjBa9UAdELbjlKzB5PHk%2BCInBgyM3kZtpApqtAv7CJaxBvhQcSgKPkkeNiH380CkLPHHeU5J53u3CGQXYIa0jorDEy41vmakrLlDckIhC6WD3svkGM%2BRPjBcjeGRXFe%2FJ7XUQfukr&u2=IXZGk83thjTYAXvt&width=2560" alt="Estadísticas Ciberseguridad 2024" style="max-height:50mm;">
+      <div class="img-caption">// Estadísticas clave de ciberseguridad — Fuente: NordLayer 2024</div>
+    </div>
+    <div class="highlight-box">
+      <p>El coste global del cibercrimen superará los <strong>10,5 billones de dólares anuales</strong>. Esto convierte a la ciberseguridad en una de las industrias que más empleo genera actualmente, con demanda creciente cada año.</p>
+    </div>
+    <div class="card" style="margin-top:auto;">
+      <div class="card-title">// Oportunidad de mercado</div>
+      <p>Las empresas necesitan <strong style="color:#fff">más expertos de los que existen</strong>. Si entras ahora, entras con ventaja frente a un mercado con oferta insuficiente y demanda explosiva.</p>
+    </div>
+    <div class="footer-brand">
+      <div class="logo">LIONX<span style="color:#fff">SECURITY</span></div>
+      <div class="tagline">Academia especializada en ciberseguridad</div>
+    </div>
+  </div>
+  <div class="page-num">03 / 06</div>
+</div>
+<!-- =========================================
+     PÁGINA 4 — SALARIOS
+========================================= -->
+<div class="page">
+  <div class="corner-tl"></div>
+  <div class="corner-br"></div>
+  <div class="page-inner">
+    <div class="top-bar">
+      <div class="brand">LionxSecurity</div>
+      <div class="tag">// MÓDULO 03 — SALARIOS</div>
+    </div>
+    <div class="section-label">// Retribución</div>
+    <div class="section-title">El sector <span>MEJOR PAGADO</span><br>del mundo digital</div>
+    <div class="bar-chart">
+      <div class="bar-row">
+        <div class="bar-label">Ciberseguridad</div>
+        <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+        <div class="bar-val">40–120K€</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Programación</div>
+        <div class="bar-track"><div class="bar-fill dim" style="width:54%"></div></div>
+        <div class="bar-val dim">30–60K€</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Marketing</div>
+        <div class="bar-track"><div class="bar-fill dim" style="width:34%"></div></div>
+        <div class="bar-val dim">22–35K€</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Administración</div>
+        <div class="bar-track"><div class="bar-fill dim" style="width:22%"></div></div>
+        <div class="bar-val dim">18–24K€</div>
+      </div>
+    </div>
+    <table class="salary-table">
+      <thead>
+        <tr>
+          <th>Sector</th>
+          <th>Salario Medio Anual</th>
+          <th>Demanda</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>🛡️ Ciberseguridad</td>
+          <td class="highlight-val">40.000€ – 120.000€</td>
+          <td style="color:#FF6600">🔥 Muy alta</td>
+        </tr>
+        <tr>
+          <td>💻 Programación</td>
+          <td>30.000€ – 60.000€</td>
+          <td style="color:#aaa">Alta</td>
+        </tr>
+        <tr>
+          <td>📣 Marketing</td>
+          <td>22.000€ – 35.000€</td>
+          <td style="color:#aaa">Media</td>
+        </tr>
+        <tr>
+          <td>📋 Administración</td>
+          <td>18.000€ – 24.000€</td>
+          <td style="color:#555">Estable</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="highlight-box">
+      <p>Perfiles senior o de consultoría especializada pueden superar <strong>120.000€ – 150.000€ anuales</strong>. La escasez de profesionales cualificados mantiene los salarios al alza de forma sostenida.</p>
+    </div>
+    <div class="card" style="margin-top:auto;">
+      <div class="card-title">// ¿Por qué se paga tanto?</div>
+      <p>Escasez de talento + alto impacto económico de los ataques + digitalización imparable = <strong style="color:#fff">la ecuación perfecta para el profesional de ciberseguridad</strong>.</p>
+    </div>
+    <div class="footer-brand">
+      <div class="logo">LIONX<span style="color:#fff">SECURITY</span></div>
+      <div class="tagline">Academia especializada en ciberseguridad</div>
+    </div>
+  </div>
+  <div class="page-num">04 / 06</div>
+</div>
+<!-- =========================================
+     PÁGINA 5 — TRABAJO REMOTO + ROLES
+========================================= -->
+<div class="page">
+  <div class="corner-tl"></div>
+  <div class="corner-br"></div>
+  <div class="page-inner">
+    <div class="top-bar">
+      <div class="brand">LionxSecurity</div>
+      <div class="tag">// MÓDULO 04 — FLEXIBILIDAD Y ROLES</div>
+    </div>
+    <div class="section-label">// Libertad laboral</div>
+    <div class="section-title">Trabaja desde <span>CUALQUIER LUGAR</span><br>del mundo</div>
+    <!-- Imagen trabajo remoto -->
+    <div class="remote-img-wrap">
+      <img src="https://sspark.genspark.ai/cfimages?u1=JA5o2Oj8TO1b2PWu3FNboy8LbXw%2FliOBw6dmbdfPNDj2Kj75nxc%2FjkntocKWGscWzQ5rp9cDditTMuEKTxGU5N7OCI%2Bpxi0m4X6Pr%2Fii6gxFax4GRH%2FQhFZ9ANveOkTjq8Wn4BMlvI1DKpPMWJxr4rrZdcGqlmPvYZfeCsptFgJd%2BUg%2F9DI%3D&u2=WPGIdt1Je4eCyKuA&width=2560" alt="Trabajo remoto">
+      <div class="overlay-text">
+        <p>El talento es más<br>importante que<br>tu <span>ubicación</span></p>
+      </div>
+    </div>
+    <div class="flex-row" style="margin-bottom:10px;">
+      <div class="benefit-chip"><span class="icon">🏠</span>Trabajo 100% remoto</div>
+      <div class="benefit-chip"><span class="icon">✈️</span>Nómada digital</div>
+      <div class="benefit-chip"><span class="icon">👨‍👩‍👧</span>Más tiempo familiar</div>
+      <div class="benefit-chip"><span class="icon">🌍</span>Empresas globales</div>
+    </div>
+    <div class="section-label">// Roles más demandados</div>
+    <div class="roles-grid">
+      <div class="role-card">
+        <div class="role-icon">⚔️</div>
+        <div class="role-title">Pentester</div>
+        <div class="role-desc">Simula ataques para encontrar vulnerabilidades antes que los hackers.</div>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">📡</div>
+        <div class="role-title">Analista SOC</div>
+        <div class="role-desc">Monitoriza sistemas en tiempo real. Rol de entrada más habitual.</div>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">🧩</div>
+        <div class="role-title">Consultor</div>
+        <div class="role-desc">Diseña estrategias de seguridad para proteger infraestructuras.</div>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">🔎</div>
+        <div class="role-title">Auditor</div>
+        <div class="role-desc">Detecta fallos y verifica que se cumplen los estándares de seguridad.</div>
+      </div>
+    </div>
+    <div class="footer-brand" style="margin-top:auto;">
+      <div class="logo">LIONX<span style="color:#fff">SECURITY</span></div>
+      <div class="tagline">Academia especializada en ciberseguridad</div>
+    </div>
+  </div>
+  <div class="page-num">05 / 06</div>
+</div>
+<!-- =========================================
+     PÁGINA 6 — CTA LIONXSECURITY
+========================================= -->
+<div class="page cta-page">
+  <div class="corner-tl"></div>
+  <div class="corner-br"></div>
+  <div class="page-inner">
+    <div class="top-bar">
+      <div class="brand">LionxSecurity</div>
+      <div class="tag">// MÓDULO 05 — TU PRÓXIMO PASO</div>
+    </div>
+    <div class="cta-hero">
+      <div class="academy-name">LionxSecurity</div>
+      <div class="cta-title">¿Listo para empezar<br>en ciberseguridad?</div>
+      <p class="cta-sub">Si estás leyendo esto es porque quieres dar el paso hacia un sector con más oportunidades. En LionxSecurity te ayudamos a hacerlo con un método claro.</p>
+    </div>
+    <div class="cta-benefits">
+      <div class="cta-benefit">
+        <div class="ico">🎯</div>
+        <div class="txt"><strong>Método probado</strong>Ruta clara para entrar al sector desde cero, paso a paso.</div>
+      </div>
+      <div class="cta-benefit">
+        <div class="ico">🏆</div>
+        <div class="txt"><strong>Casos de éxito</strong>Alumnos que ya trabajan en ciberseguridad con nosotros.</div>
+      </div>
+      <div class="cta-benefit">
+        <div class="ico">📜</div>
+        <div class="txt"><strong>Certificaciones</strong>Saber qué certifica tu CV para el mercado real.</div>
+      </div>
+      <div class="cta-benefit">
+        <div class="ico">👨‍💻</div>
+        <div class="txt"><strong>Docentes activos</strong>Profesores que trabajan en el sector hoy mismo.</div>
+      </div>
+    </div>
+    <div class="cta-success">
+      <p>Contamos con numerosos casos de éxito de alumnos que han conseguido <strong>reorientar su carrera hacia la ciberseguridad</strong>. Nuestro objetivo es que tengas una guía clara y una metodología concisa para avanzar hasta tu <strong>primer empleo en ciberseguridad</strong>.</p>
+    </div>
+    <div class="cta-action">
+      <div class="instruction">// Primera consulta gratuita — haz clic para programar:</div>
+      <a href="https://cal.com/lionxsecurity-gmg0n1/30min" class="keyword-button">EMPEZAR</a>
+      <p class="cta-footer-text">
+        Nuestro equipo analizará tu perfil y te ofrecerá una primera consulta gratuita.<br>
+        Evaluamos tu punto de partida · Resolvemos tus dudas · Diseñamos tu plan.
+      </p>
+    </div>
+    <div class="footer-brand" style="margin-top:auto; padding-top:10px;">
+      <div class="logo">LIONX<span style="color:#fff">SECURITY</span></div>
+      <div class="tagline">Academia especializada en formación en ciberseguridad</div>
+    </div>
+  </div>
+  <div class="page-num">06 / 06</div>
+</div>
 </body>
 </html>
 ```
