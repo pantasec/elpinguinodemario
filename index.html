@@ -676,23 +676,15 @@
     text-transform: uppercase;
     margin-bottom: 8px;
   }
-  .cta-action .keyword-button {
-    display: inline-block;
+  .cta-action .keyword {
     font-family: 'Orbitron', sans-serif;
     font-size: 38px;
     font-weight: 900;
-    color: #000;
-    background: var(--orange);
-    padding: 10px 30px;
-    border-radius: 4px;
-    text-decoration: none;
+    color: var(--orange);
     text-shadow: 0 0 20px rgba(255,102,0,0.6);
     letter-spacing: 8px;
+    display: block;
     margin-bottom: 8px;
-    transition: background 0.3s;
-  }
-  .cta-action .keyword-button:hover {
-    background: var(--orange-light);
   }
   .cta-action .cta-footer-text {
     font-size: 12px;
@@ -721,13 +713,20 @@
     letter-spacing: 2px;
     text-transform: uppercase;
   }
+  /* Additional image styles */
+  .fill-image {
+    max-width: 100%;
+    height: auto;
+    margin: 10px 0;
+    border: 1px solid var(--orange);
+    filter: brightness(0.85) contrast(1.1);
+  }
   /* ===== PRINT STYLES ===== */
   @media print {
     body { background: #000; margin: 0; padding: 0; }
     .page { margin: 0; page-break-after: always; box-shadow: none; }
     .page::before { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .keyword-button { background: var(--orange) !important; color: #000 !important; }
   }
   @page {
     size: A4 portrait;
@@ -825,7 +824,8 @@
         <div class="label">Proteger<br>datos críticos</div>
       </div>
     </div>
-    <div class="card" style="margin-top:auto;">
+    <img src="https://c8.alamy.com/comp/JA652M/cyber-security-concept-as-vector-illustration-with-icons-JA652M.jpg" alt="Ilustración de conceptos de ciberseguridad" class="fill-image">
+    <div class="card">
       <div class="card-title">// Conclusión clave</div>
       <p>La ciberseguridad no es solo una profesión tecnológica. Es una <strong style="color:#fff">profesión estratégica para el futuro digital del mundo</strong>. Cada organización la necesita.</p>
     </div>
@@ -948,10 +948,11 @@
         </tr>
       </tbody>
     </table>
+    <img src="https://virtualizationreview.com/articles/2021/11/09/~/media/ECG/virtualizationreview/Images/2021/11/dice_growth.ashx" alt="Gráfico de comparación de salarios en ciberseguridad" class="fill-image">
     <div class="highlight-box">
       <p>Perfiles senior o de consultoría especializada pueden superar <strong>120.000€ – 150.000€ anuales</strong>. La escasez de profesionales cualificados mantiene los salarios al alza de forma sostenida.</p>
     </div>
-    <div class="card" style="margin-top:auto;">
+    <div class="card">
       <div class="card-title">// ¿Por qué se paga tanto?</div>
       <p>Escasez de talento + alto impacto económico de los ataques + digitalización imparable = <strong style="color:#fff">la ecuación perfecta para el profesional de ciberseguridad</strong>.</p>
     </div>
@@ -1011,7 +1012,8 @@
         <div class="role-desc">Detecta fallos y verifica que se cumplen los estándares de seguridad.</div>
       </div>
     </div>
-    <div class="footer-brand" style="margin-top:auto;">
+    <img src="https://d2ds8yldqp7gxv.cloudfront.net/Blog+Explanatory+Images/Cybersecurity_Career_Paths_1.webp" alt="Roadmap de carreras en ciberseguridad" class="fill-image">
+    <div class="footer-brand">
       <div class="logo">LIONX<span style="color:#fff">SECURITY</span></div>
       <div class="tagline">Academia especializada en ciberseguridad</div>
     </div>
@@ -1056,8 +1058,8 @@
       <p>Contamos con numerosos casos de éxito de alumnos que han conseguido <strong>reorientar su carrera hacia la ciberseguridad</strong>. Nuestro objetivo es que tengas una guía clara y una metodología concisa para avanzar hasta tu <strong>primer empleo en ciberseguridad</strong>.</p>
     </div>
     <div class="cta-action">
-      <div class="instruction">// Primera consulta gratuita — haz clic para programar:</div>
-      <a href="https://cal.com/lionxsecurity-gmg0n1/30min" class="keyword-button">EMPEZAR</a>
+      <div class="instruction">// Primera consulta gratuita — escribe en el grupo la palabra:</div>
+      <span class="keyword">EMPEZAR</span>
       <p class="cta-footer-text">
         Nuestro equipo analizará tu perfil y te ofrecerá una primera consulta gratuita.<br>
         Evaluamos tu punto de partida · Resolvemos tus dudas · Diseñamos tu plan.
