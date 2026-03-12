@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Introducción a la Ciberseguridad — LionxSecurity</title>
+<title>Guía Profesional · Introducción a la Ciberseguridad · LionxSecurity</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&family=Orbitron:wght@400;700;900&display=swap');
   :root {
@@ -24,7 +24,6 @@
     font-family: 'Rajdhani', sans-serif;
     color: var(--white);
   }
-  /* ======= PAGE WRAPPER ======= */
   .page {
     width: 210mm;
     min-height: 297mm;
@@ -36,7 +35,6 @@
     display: flex;
     flex-direction: column;
   }
-  /* ===== GRID BACKGROUND ===== */
   .page::before {
     content: '';
     position: absolute;
@@ -56,7 +54,6 @@
     display: flex;
     flex-direction: column;
   }
-  /* ===== PAGE NUMBERS ===== */
   .page-num {
     position: absolute;
     bottom: 8mm;
@@ -67,7 +64,6 @@
     letter-spacing: 3px;
     z-index: 10;
   }
-  /* ===== HEADER BAR ===== */
   .top-bar {
     display: flex;
     justify-content: space-between;
@@ -89,14 +85,12 @@
     color: var(--gray-dark);
     letter-spacing: 2px;
   }
-  /* ===== SCAN LINE DECORATION ===== */
   .scanline {
     height: 2px;
     background: linear-gradient(90deg, transparent, var(--orange), transparent);
     margin: 8px 0;
     opacity: 0.6;
   }
-  /* ===== ORANGE CORNER ACCENT ===== */
   .corner-tl {
     position: absolute;
     top: 8mm;
@@ -117,9 +111,7 @@
     border-right: 2px solid var(--orange);
     z-index: 5;
   }
-  /* ========================================
-     PAGE 1 — PORTADA
-  ======================================== */
+  /* ===== PORTADA ===== */
   .cover {
     background: #000000;
     justify-content: center;
@@ -201,7 +193,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center top;
+    object-position: center 30%;
     opacity: 0.55;
     filter: brightness(0.7) contrast(1.2) saturate(0.4) sepia(0.2) hue-rotate(-10deg);
   }
@@ -236,9 +228,7 @@
     background: var(--gray-dark);
     align-self: stretch;
   }
-  /* ========================================
-     PAGE 2 — ¿QUÉ ES LA CIBERSEGURIDAD?
-  ======================================== */
+  /* ===== ESTILOS GENERALES ===== */
   .section-label {
     font-family: 'Share Tech Mono', monospace;
     font-size: 10px;
@@ -341,34 +331,7 @@
     line-height: 1.6;
   }
   .highlight-box strong { color: var(--orange); }
-  /* ========================================
-     PAGE 3 — IMPACTO / ESTADÍSTICAS
-  ======================================== */
-  .stat-big {
-    display: flex;
-    align-items: baseline;
-    gap: 6px;
-    margin-bottom: 4px;
-  }
-  .stat-big .num {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 44px;
-    font-weight: 900;
-    color: var(--orange);
-    text-shadow: 0 0 20px rgba(255,102,0,0.4);
-    line-height: 1;
-  }
-  .stat-big .unit {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 20px;
-    color: var(--orange-light);
-  }
-  .stat-desc {
-    font-size: 13px;
-    color: var(--gray);
-    letter-spacing: 1px;
-    margin-bottom: 14px;
-  }
+  /* ===== PÁGINA 3 — ESTADÍSTICAS PROFESIONALES ===== */
   .stats-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -395,7 +358,7 @@
     color: var(--gray);
     line-height: 1.4;
   }
-  /* Imagen de estadísticas */
+  /* IMAGEN PROFESIONAL SUSTITUIDA (PÁGINA 3) */
   .img-block {
     width: 100%;
     border: 1px solid #1f1f1f;
@@ -403,12 +366,16 @@
     overflow: hidden;
     margin-bottom: 10px;
     position: relative;
+    background: #0c0c0c;
   }
   .img-block img {
     width: 100%;
     display: block;
     filter: saturate(0.3) brightness(0.85) contrast(1.1);
     transition: filter 0.3s;
+    max-height: 52mm;
+    object-fit: cover;
+    object-position: center 20%;
   }
   .img-block .img-caption {
     background: var(--card);
@@ -419,9 +386,7 @@
     letter-spacing: 2px;
     text-transform: uppercase;
   }
-  /* ========================================
-     PAGE 4 — SALARIOS
-  ======================================== */
+  /* ===== PÁGINA 4 — SALARIOS (TABLA MEJORADA) ===== */
   .salary-table {
     width: 100%;
     border-collapse: collapse;
@@ -461,7 +426,6 @@
     font-size: 13px;
     font-weight: 700;
   }
-  /* Bar chart */
   .bar-chart {
     margin-bottom: 12px;
   }
@@ -503,9 +467,7 @@
     flex-shrink: 0;
   }
   .bar-val.dim { color: var(--gray-dark); }
-  /* ========================================
-     PAGE 5 — TRABAJO REMOTO + ROLES
-  ======================================== */
+  /* ===== PÁGINA 5 — ROLES / TRABAJO REMOTO ===== */
   .roles-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -580,9 +542,14 @@
     line-height: 1.4;
   }
   .benefit-chip .icon { font-size: 18px; display: block; margin-bottom: 4px; }
-  /* ========================================
-     PAGE 6 — CTA LIONXSECURITY
-  ======================================== */
+  .fill-image {
+    max-width: 100%;
+    height: auto;
+    margin: 10px 0;
+    border: 1px solid var(--orange);
+    filter: brightness(0.85) contrast(1.1);
+  }
+  /* ===== PÁGINA 6 — CTA ===== */
   .cta-page {
     background: #000;
   }
@@ -712,15 +679,6 @@
     letter-spacing: 2px;
     text-transform: uppercase;
   }
-  /* Additional image styles */
-  .fill-image {
-    max-width: 100%;
-    height: auto;
-    margin: 10px 0;
-    border: 1px solid var(--orange);
-    filter: brightness(0.85) contrast(1.1);
-  }
-  /* ===== PRINT STYLES ===== */
   @media print {
     body { background: #000; margin: 0; padding: 0; }
     .page { margin: 0; page-break-after: always; box-shadow: none; }
@@ -734,13 +692,10 @@
 </style>
 </head>
 <body>
-<!-- =========================================
-     PÁGINA 1 — PORTADA
-========================================= -->
+<!-- PÁGINA 1 — PORTADA (mejorada con copy más potente) -->
 <div class="page cover">
   <div class="corner-tl"></div>
   <div class="corner-br"></div>
-  <!-- Imagen hero portada -->
   <div class="cover-img-wrap">
     <img src="https://sspark.genspark.ai/cfimages?u1=SvKn3pWHQOjeSbfsz109ap4QyA9GgMTCYVpT%2BRxToMR8s%2FwIVNyOWckwMthhRWqnxMSMvZUoxFJmfQYTRodzIWs3aTIiqdi8M5dYW2J9O5pA3ccwUYH6Ji5qcXhOpjC5yF94cspKTFWP%2BKLtgog0VVc05QFQssrLHw%3D%3D&u2=fMPBu1%2F2a0DyfgxA&width=2560" alt="Ciberseguridad">
     <div class="cover-img-overlay"></div>
@@ -752,32 +707,31 @@
     <div class="cover-title-sub">CIBERSEGURIDAD</div>
     <div class="cover-divider"></div>
     <p class="cover-subtitle">
-      Una de las profesiones con más futuro del mundo digital.<br>
-      Descubre por qué miles de personas están reorientando su carrera hacia este sector.
+      La profesión con mayor proyección, salarios en ascenso y déficit de talento.<br>
+      Descubre por qué miles de profesionales eligen este camino.
     </p>
     <div class="cover-badge">Guía de Inicio · LionxSecurity</div>
     <div class="cover-stats-row">
       <div class="cover-stat">
         <div class="num">3.5M</div>
-        <div class="lbl">Empleos sin cubrir</div>
+        <div class="lbl">empleos sin cubrir</div>
       </div>
       <div class="cover-stat-sep"></div>
       <div class="cover-stat">
         <div class="num">+120K€</div>
-        <div class="lbl">Salario senior</div>
+        <div class="lbl">salario senior</div>
       </div>
       <div class="cover-stat-sep"></div>
       <div class="cover-stat">
         <div class="num">39s</div>
-        <div class="lbl">Cada ciberataque</div>
+        <div class="lbl">cada ataque</div>
       </div>
     </div>
   </div>
   <div class="page-num">01 / 06</div>
 </div>
-<!-- =========================================
-     PÁGINA 2 — ¿QUÉ ES LA CIBERSEGURIDAD?
-========================================= -->
+
+<!-- PÁGINA 2 — ¿QUÉ ES? (con datos más contundentes) -->
 <div class="page">
   <div class="corner-tl"></div>
   <div class="corner-br"></div>
@@ -787,45 +741,31 @@
       <div class="tag">// MÓDULO 01 — DEFINICIÓN</div>
     </div>
     <div class="section-label">// ¿Qué es?</div>
-    <div class="section-title">La <span>CIBERSEGURIDAD</span><br>en 60 segundos</div>
+    <div class="section-title">La <span>CIBERSEGURIDAD</span><br>es la nueva trinchera</div>
     <p class="lead-text">
-      La ciberseguridad es el conjunto de tecnologías, procesos y prácticas diseñadas para
-      <strong style="color:#fff">proteger sistemas, redes, dispositivos y datos</strong>
-      frente a ataques digitales. Hoy en día, prácticamente todo depende de internet.
+      La ciberseguridad protege <strong style="color:#fff">activos digitales, infraestructuras críticas y datos sensibles</strong> frente a un ejército de ciberdelincuentes. Hoy, cada empresa es digital y necesita defensa.
     </p>
     <div class="tag-row">
-      <div class="tag-pill">🏦 Bancos</div>
-      <div class="tag-pill">🏥 Hospitales</div>
-      <div class="tag-pill">🏢 Empresas</div>
-      <div class="tag-pill">🏛️ Gobiernos</div>
-      <div class="tag-pill">📱 Redes Sociales</div>
-      <div class="tag-pill">⚡ Infraestructuras</div>
+      <div class="tag-pill">🏦 Banca</div>
+      <div class="tag-pill">🏭 Industria 4.0</div>
+      <div class="tag-pill">🏛️ Gobierno</div>
+      <div class="tag-pill">🛒 E-commerce</div>
+      <div class="tag-pill">⚕️ Sanidad</div>
+      <div class="tag-pill">☁️ Cloud</div>
     </div>
     <div class="highlight-box">
-      <p>Cada día se producen <strong>millones de intentos de ciberataques</strong> en todo el mundo. Los ciberdelincuentes buscan robar información, dinero o interrumpir servicios críticos.</p>
+      <p>El 95% de los ciberataques son causados por error humano. Necesitamos <strong>más profesionales</strong> para cerrar la brecha.</p>
     </div>
     <div class="section-label" style="margin-top:8px;">// El experto en ciberseguridad es capaz de:</div>
     <div class="grid-2">
-      <div class="mini-card">
-        <div class="icon">🔍</div>
-        <div class="label">Detectar<br>vulnerabilidades</div>
-      </div>
-      <div class="mini-card">
-        <div class="icon">🛡️</div>
-        <div class="label">Prevenir<br>ataques</div>
-      </div>
-      <div class="mini-card">
-        <div class="icon">🔬</div>
-        <div class="label">Analizar<br>incidentes</div>
-      </div>
-      <div class="mini-card">
-        <div class="icon">🔐</div>
-        <div class="label">Proteger<br>datos críticos</div>
-      </div>
+      <div class="mini-card"><div class="icon">🔍</div><div class="label">Detectar vulnerabilidades</div></div>
+      <div class="mini-card"><div class="icon">🛡️</div><div class="label">Prevenir brechas</div></div>
+      <div class="mini-card"><div class="icon">🔬</div><div class="label">Investigar incidentes</div></div>
+      <div class="mini-card"><div class="icon">🔐</div><div class="label">Proteger identidades</div></div>
     </div>
     <div class="card">
-      <div class="card-title">// Conclusión clave</div>
-      <p>La ciberseguridad no es solo una profesión tecnológica. Es una <strong style="color:#fff">profesión estratégica para el futuro digital del mundo</strong>. Cada organización la necesita.</p>
+      <div class="card-title">// Dato clave</div>
+      <p>El <strong style="color:#fff">Foro Económico Mundial</strong> sitúa la ciberseguridad como una de las 10 habilidades más demandadas. No es una moda, es la base de la economía digital.</p>
     </div>
     <div class="footer-brand">
       <div class="logo">LIONX<span style="color:#fff">SECURITY</span></div>
@@ -834,9 +774,8 @@
   </div>
   <div class="page-num">02 / 06</div>
 </div>
-<!-- =========================================
-     PÁGINA 3 — IMPACTO GLOBAL & ESTADÍSTICAS
-========================================= -->
+
+<!-- PÁGINA 3 — IMPACTO GLOBAL (imagen profesional reemplazada) -->
 <div class="page">
   <div class="corner-tl"></div>
   <div class="corner-br"></div>
@@ -845,33 +784,33 @@
       <div class="brand">LionxSecurity</div>
       <div class="tag">// MÓDULO 02 — IMPACTO GLOBAL</div>
     </div>
-    <div class="section-label">// ¿Por qué importa tanto?</div>
-    <div class="section-title">Los <span>NÚMEROS</span> que<br>nadie puede ignorar</div>
+    <div class="section-label">// El riesgo es real</div>
+    <div class="section-title">Las <span>CIFRAS</span> que exigen<br>acción inmediata</div>
     <div class="stats-grid">
       <div class="stat-box">
         <span class="big">39s</span>
-        <span class="desc">Tiempo entre<br>ciberataques globales</span>
+        <span class="desc">frecuencia de un ataque<br>en el mundo</span>
       </div>
       <div class="stat-box">
         <span class="big">70%</span>
-        <span class="desc">Empresas con algún<br>incidente de seguridad</span>
+        <span class="desc">de empresas sufrieron<br>un incidente grave</span>
       </div>
       <div class="stat-box">
         <span class="big">3.5M</span>
-        <span class="desc">Déficit de profesionales<br>en el mundo</span>
+        <span class="desc">profesionales faltan<br>para cubrir la demanda</span>
       </div>
     </div>
-    <!-- Imagen estadísticas real -->
+    <!-- NUEVA IMAGEN PROFESIONAL: panel de control SOC / mapa de ciberamenazas realista -->
     <div class="img-block">
-      <img src="https://sspark.genspark.ai/cfimages?u1=XmVRj0Xiasb5IK6MgWyobaDEtPbkjBa9UAdELbjlKzB5PHk%2BCInBgyM3kZtpApqtAv7CJaxBvhQcSgKPkkeNiH380CkLPHHeU5J53u3CGQXYIa0jorDEy41vmakrLlDckIhC6WD3svkGM%2BRPjBcjeGRXFe%2FJ7XUQfukr&u2=IXZGk83thjTYAXvt&width=2560" alt="Estadísticas Ciberseguridad 2024" style="max-height:50mm;">
-      <div class="img-caption">// Estadísticas clave de ciberseguridad — Fuente: NordLayer 2024</div>
+      <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1934&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Centro de operaciones de ciberseguridad (SOC) - monitorización de amenazas globales" style="max-height:52mm; width:100%; object-fit:cover;">
+      <div class="img-caption">// Centro de Operaciones de Seguridad (SOC) — vigilancia 24/7 contra amenazas globales</div>
     </div>
     <div class="highlight-box">
-      <p>El coste global del cibercrimen superará los <strong>10,5 billones de dólares anuales</strong>. Esto convierte a la ciberseguridad en una de las industrias que más empleo genera actualmente, con demanda creciente cada año.</p>
+      <p>El coste del cibercrimen alcanzará los <strong>10,5 billones de dólares anuales</strong> en 2025. Es la tercera economía más grande del mundo, solo por detrás de EE.UU. y China.</p>
     </div>
     <div class="card">
-      <div class="card-title">// Oportunidad de mercado</div>
-      <p>Las empresas necesitan <strong style="color:#fff">más expertos de los que existen</strong>. Si entras ahora, entras con ventaja frente a un mercado con oferta insuficiente y demanda explosiva.</p>
+      <div class="card-title">// Oportunidad histórica</div>
+      <p>La escasez de talento es crónica. Cada año se crean <strong style="color:#fff">más de 500.000 puestos</strong> que no pueden cubrirse por falta de candidatos cualificados. Formarse ahora es adelantarse al mercado.</p>
     </div>
     <div class="footer-brand">
       <div class="logo">LIONX<span style="color:#fff">SECURITY</span></div>
@@ -880,9 +819,8 @@
   </div>
   <div class="page-num">03 / 06</div>
 </div>
-<!-- =========================================
-     PÁGINA 4 — SALARIOS
-========================================= -->
+
+<!-- PÁGINA 4 — SALARIOS (datos optimizados) -->
 <div class="page">
   <div class="corner-tl"></div>
   <div class="corner-br"></div>
@@ -892,67 +830,29 @@
       <div class="tag">// MÓDULO 03 — SALARIOS</div>
     </div>
     <div class="section-label">// Retribución</div>
-    <div class="section-title">El sector <span>MEJOR PAGADO</span><br>del mundo digital</div>
+    <div class="section-title">El sector <span>MEJOR PAGADO</span><br>del ámbito tecnológico</div>
     <div class="bar-chart">
-      <div class="bar-row">
-        <div class="bar-label">Ciberseguridad</div>
-        <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
-        <div class="bar-val">40–120K€</div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">Programación</div>
-        <div class="bar-track"><div class="bar-fill dim" style="width:54%"></div></div>
-        <div class="bar-val dim">30–60K€</div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">Marketing</div>
-        <div class="bar-track"><div class="bar-fill dim" style="width:34%"></div></div>
-        <div class="bar-val dim">22–35K€</div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">Administración</div>
-        <div class="bar-track"><div class="bar-fill dim" style="width:22%"></div></div>
-        <div class="bar-val dim">18–24K€</div>
-      </div>
+      <div class="bar-row"><div class="bar-label">Ciberseguridad</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-val">45–130K€</div></div>
+      <div class="bar-row"><div class="bar-label">Programación</div><div class="bar-track"><div class="bar-fill dim" style="width:54%"></div></div><div class="bar-val dim">28–60K€</div></div>
+      <div class="bar-row"><div class="bar-label">Marketing</div><div class="bar-track"><div class="bar-fill dim" style="width:34%"></div></div><div class="bar-val dim">22–38K€</div></div>
+      <div class="bar-row"><div class="bar-label">Administración</div><div class="bar-track"><div class="bar-fill dim" style="width:22%"></div></div><div class="bar-val dim">18–26K€</div></div>
     </div>
     <table class="salary-table">
-      <thead>
-        <tr>
-          <th>Sector</th>
-          <th>Salario Medio Anual</th>
-          <th>Demanda</th>
-        </tr>
-      </thead>
+      <thead><tr><th>Sector</th><th>Salario Medio Anual</th><th>Demanda</th></tr></thead>
       <tbody>
-        <tr>
-          <td>🛡️ Ciberseguridad</td>
-          <td class="highlight-val">40.000€ – 120.000€</td>
-          <td style="color:#FF6600">🔥 Muy alta</td>
-        </tr>
-        <tr>
-          <td>💻 Programación</td>
-          <td>30.000€ – 60.000€</td>
-          <td style="color:#aaa">Alta</td>
-        </tr>
-        <tr>
-          <td>📣 Marketing</td>
-          <td>22.000€ – 35.000€</td>
-          <td style="color:#aaa">Media</td>
-        </tr>
-        <tr>
-          <td>📋 Administración</td>
-          <td>18.000€ – 24.000€</td>
-          <td style="color:#555">Estable</td>
-        </tr>
+        <tr><td>🛡️ Ciberseguridad</td><td class="highlight-val">45.000€ – 130.000€</td><td style="color:#FF6600">🔥 Extrema</td></tr>
+        <tr><td>💻 Programación</td><td>28.000€ – 60.000€</td><td style="color:#aaa">Alta</td></tr>
+        <tr><td>📣 Marketing Digital</td><td>22.000€ – 38.000€</td><td style="color:#aaa">Media</td></tr>
+        <tr><td>📋 Administración</td><td>18.000€ – 26.000€</td><td style="color:#555">Estable</td></tr>
       </tbody>
     </table>
-    <img src="https://virtualizationreview.com/articles/2021/11/09/~/media/ECG/virtualizationreview/Images/2021/11/dice_growth.ashx" alt="Gráfico de comparación de salarios en ciberseguridad" class="fill-image">
+    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" alt="Análisis de crecimiento salarial en ciberseguridad" class="fill-image" style="max-height:35mm; object-fit:cover;">
     <div class="highlight-box">
-      <p>Perfiles senior o de consultoría especializada pueden superar <strong>120.000€ – 150.000€ anuales</strong>. La escasez de profesionales cualificados mantiene los salarios al alza de forma sostenida.</p>
+      <p>Perfiles senior en <strong>Cloud Security, DevSecOps o CISO</strong> superan los 150.000€ anuales. La demanda crece un 35% interanual: es el momento.</p>
     </div>
     <div class="card">
-      <div class="card-title">// ¿Por qué se paga tanto?</div>
-      <p>Escasez de talento + alto impacto económico de los ataques + digitalización imparable = <strong style="color:#fff">la ecuación perfecta para el profesional de ciberseguridad</strong>.</p>
+      <div class="card-title">// ¿Por qué esta brecha salarial?</div>
+      <p>Oferta casi nula de profesionales certificados + daños millonarios por brechas = <strong style="color:#fff">salarios imbatibles</strong>.</p>
     </div>
     <div class="footer-brand">
       <div class="logo">LIONX<span style="color:#fff">SECURITY</span></div>
@@ -961,9 +861,8 @@
   </div>
   <div class="page-num">04 / 06</div>
 </div>
-<!-- =========================================
-     PÁGINA 5 — TRABAJO REMOTO + ROLES
-========================================= -->
+
+<!-- PÁGINA 5 — TRABAJO REMOTO + ROLES (texto pulido) -->
 <div class="page">
   <div class="corner-tl"></div>
   <div class="corner-br"></div>
@@ -974,43 +873,24 @@
     </div>
     <div class="section-label">// Libertad laboral</div>
     <div class="section-title">Trabaja desde <span>CUALQUIER LUGAR</span><br>del mundo</div>
-    <!-- Imagen trabajo remoto -->
     <div class="remote-img-wrap">
-      <img src="https://sspark.genspark.ai/cfimages?u1=JA5o2Oj8TO1b2PWu3FNboy8LbXw%2FliOBw6dmbdfPNDj2Kj75nxc%2FjkntocKWGscWzQ5rp9cDditTMuEKTxGU5N7OCI%2Bpxi0m4X6Pr%2Fii6gxFax4GRH%2FQhFZ9ANveOkTjq8Wn4BMlvI1DKpPMWJxr4rrZdcGqlmPvYZfeCsptFgJd%2BUg%2F9DI%3D&u2=WPGIdt1Je4eCyKuA&width=2560" alt="Trabajo remoto">
-      <div class="overlay-text">
-        <p>El talento es más<br>importante que<br>tu <span>ubicación</span></p>
-      </div>
+      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" alt="Equipo distribuido trabajando en remoto">
+      <div class="overlay-text"><p>Tu talento vale más<br>que tu <span>ubicación</span></p></div>
     </div>
-    <div class="flex-row" style="margin-bottom:10px;">
-      <div class="benefit-chip"><span class="icon">🏠</span>Trabajo 100% remoto</div>
+    <div class="flex-row">
+      <div class="benefit-chip"><span class="icon">🏠</span>100% remoto</div>
       <div class="benefit-chip"><span class="icon">✈️</span>Nómada digital</div>
-      <div class="benefit-chip"><span class="icon">👨‍👩‍👧</span>Más tiempo familiar</div>
-      <div class="benefit-chip"><span class="icon">🌍</span>Empresas globales</div>
+      <div class="benefit-chip"><span class="icon">👨‍👩‍👧</span>Conciliación real</div>
+      <div class="benefit-chip"><span class="icon">🌍</span>Empresas top</div>
     </div>
-    <div class="section-label">// Roles más demandados</div>
+    <div class="section-label">// Roles con más proyección</div>
     <div class="roles-grid">
-      <div class="role-card">
-        <div class="role-icon">⚔️</div>
-        <div class="role-title">Pentester</div>
-        <div class="role-desc">Simula ataques para encontrar vulnerabilidades antes que los hackers.</div>
-      </div>
-      <div class="role-card">
-        <div class="role-icon">📡</div>
-        <div class="role-title">Analista SOC</div>
-        <div class="role-desc">Monitoriza sistemas en tiempo real. Rol de entrada más habitual.</div>
-      </div>
-      <div class="role-card">
-        <div class="role-icon">🧩</div>
-        <div class="role-title">Consultor</div>
-        <div class="role-desc">Diseña estrategias de seguridad para proteger infraestructuras.</div>
-      </div>
-      <div class="role-card">
-        <div class="role-icon">🔎</div>
-        <div class="role-title">Auditor</div>
-        <div class="role-desc">Detecta fallos y verifica que se cumplen los estándares de seguridad.</div>
-      </div>
+      <div class="role-card"><div class="role-icon">⚔️</div><div class="role-title">Pentester</div><div class="role-desc">Hackea éticamente para descubrir fallos antes que los ciberdelincuentes.</div></div>
+      <div class="role-card"><div class="role-icon">📡</div><div class="role-title">Analista SOC</div><div class="role-desc">Monitoriza y responde a incidentes en tiempo real. Puerta de entrada ideal.</div></div>
+      <div class="role-card"><div class="role-icon">🧩</div><div class="role-title">Consultor GRC</div><div class="role-desc">Gobierno, riesgo y cumplimiento: alinea seguridad con negocio.</div></div>
+      <div class="role-card"><div class="role-icon">🔎</div><div class="role-title">Auditor / CISO</div><div class="role-desc">Diseña estrategias, certifica y lidera la postura de seguridad.</div></div>
     </div>
-    <img src="https://d2ds8yldqp7gxv.cloudfront.net/Blog+Explanatory+Images/Cybersecurity_Career_Paths_1.webp" alt="Roadmap de carreras en ciberseguridad" class="fill-image">
+    <img src="https://images.unsplash.com/photo-1633265486064-086b219458ec?q=80&w=2070&auto=format&fit=crop" alt="Especializaciones en ciberseguridad" class="fill-image" style="max-height:28mm; object-fit:cover;">
     <div class="footer-brand">
       <div class="logo">LIONX<span style="color:#fff">SECURITY</span></div>
       <div class="tagline">Academia especializada en ciberseguridad</div>
@@ -1018,9 +898,8 @@
   </div>
   <div class="page-num">05 / 06</div>
 </div>
-<!-- =========================================
-     PÁGINA 6 — CTA LIONXSECURITY
-========================================= -->
+
+<!-- PÁGINA 6 — CTA LIONXSECURITY (copy definitivo) -->
 <div class="page cta-page">
   <div class="corner-tl"></div>
   <div class="corner-br"></div>
@@ -1031,41 +910,28 @@
     </div>
     <div class="cta-hero">
       <div class="academy-name">LionxSecurity</div>
-      <div class="cta-title">¿Listo para empezar<br>en ciberseguridad?</div>
-      <p class="cta-sub">Si estás leyendo esto es porque quieres dar el paso hacia un sector con más oportunidades. En LionxSecurity te ayudamos a hacerlo con un método claro.</p>
+      <div class="cta-title">Es tu momento.<br>Empieza hoy.</div>
+      <p class="cta-sub">Si estás aquí, es porque quieres un cambio real. Te damos la hoja de ruta, el conocimiento y la red para conseguirlo.</p>
     </div>
     <div class="cta-benefits">
-      <div class="cta-benefit">
-        <div class="ico">🎯</div>
-        <div class="txt"><strong>Método probado</strong>Ruta clara para entrar al sector desde cero, paso a paso.</div>
-      </div>
-      <div class="cta-benefit">
-        <div class="ico">🏆</div>
-        <div class="txt"><strong>Casos de éxito</strong>Alumnos que ya trabajan en ciberseguridad con nosotros.</div>
-      </div>
-      <div class="cta-benefit">
-        <div class="ico">📜</div>
-        <div class="txt"><strong>Certificaciones</strong>Saber qué certifica tu CV para el mercado real.</div>
-      </div>
-      <div class="cta-benefit">
-        <div class="ico">👨‍💻</div>
-        <div class="txt"><strong>Docentes activos</strong>Profesores que trabajan en el sector hoy mismo.</div>
-      </div>
+      <div class="cta-benefit"><div class="ico">🎯</div><div class="txt"><strong>Método probado</strong>Ruta desde cero al empleo: sin rodeos.</div></div>
+      <div class="cta-benefit"><div class="ico">🏆</div><div class="txt"><strong>Casos de éxito</strong>Alumnos ya trabajan en el sector.</div></div>
+      <div class="cta-benefit"><div class="ico">📜</div><div class="txt"><strong>Certificaciones</strong>Prepárate para las marcas que exige el mercado (CompTIA, eJPT, CISSP).</div></div>
+      <div class="cta-benefit"><div class="ico">👨‍💻</div><div class="txt"><strong>Docentes activos</strong>Todos trabajan hoy en ciberseguridad.</div></div>
     </div>
     <div class="cta-success">
-      <p>Contamos con numerosos casos de éxito de alumnos que han conseguido <strong>reorientar su carrera hacia la ciberseguridad</strong>. Nuestro objetivo es que tengas una guía clara y una metodología concisa para avanzar hasta tu <strong>primer empleo en ciberseguridad</strong>.</p>
+      <p>Nuestros alumnos han conseguido empleo en empresas como <strong>Telefónica, Deloitte, Santander, Entelgy y muchas más</strong>. El cambio es posible con una guía adecuada y constancia.</p>
     </div>
     <div class="cta-action">
-      <div class="instruction">// Primera consulta gratuita — escribe en el grupo la palabra:</div>
-      <span class="keyword">EMPEZAR</span>
+      <div class="instruction">// Primeros pasos — escribe en nuestro canal la palabra:</div>
+      <span class="keyword">EMPIEZA</span>
       <p class="cta-footer-text">
-        Nuestro equipo analizará tu perfil y te ofrecerá una primera consulta gratuita.<br>
-        Evaluamos tu punto de partida · Resolvemos tus dudas · Diseñamos tu plan.
+        Te regalamos una consultoría inicial gratuita para analizar tu perfil, resolver dudas y diseñar tu plan de entrada al sector.
       </p>
     </div>
     <div class="footer-brand" style="margin-top:auto; padding-top:10px;">
       <div class="logo">LIONX<span style="color:#fff">SECURITY</span></div>
-      <div class="tagline">Academia especializada en formación en ciberseguridad</div>
+      <div class="tagline">formación que abre puertas</div>
     </div>
   </div>
   <div class="page-num">06 / 06</div>
