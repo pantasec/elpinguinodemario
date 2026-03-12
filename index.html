@@ -358,7 +358,6 @@
     color: var(--gray);
     line-height: 1.4;
   }
-  /* IMAGEN PROFESIONAL SUSTITUIDA (PÁGINA 3) */
   .img-block {
     width: 100%;
     border: 1px solid #1f1f1f;
@@ -372,7 +371,6 @@
     width: 100%;
     display: block;
     filter: saturate(0.3) brightness(0.85) contrast(1.1);
-    transition: filter 0.3s;
     max-height: 52mm;
     object-fit: cover;
     object-position: center 20%;
@@ -386,7 +384,7 @@
     letter-spacing: 2px;
     text-transform: uppercase;
   }
-  /* ===== PÁGINA 4 — SALARIOS (TABLA MEJORADA) ===== */
+  /* ===== PÁGINA 4 — SALARIOS ===== */
   .salary-table {
     width: 100%;
     border-collapse: collapse;
@@ -410,7 +408,6 @@
   .salary-table tbody tr:first-child {
     background: rgba(255,102,0,0.08);
   }
-  .salary-table tbody tr:hover { background: #151515; }
   .salary-table td {
     padding: 10px 12px;
     font-size: 14px;
@@ -448,13 +445,10 @@
     background: #111;
     border-radius: 2px;
     overflow: hidden;
-    position: relative;
   }
   .bar-fill {
     height: 100%;
     background: linear-gradient(90deg, var(--orange), var(--orange-light));
-    border-radius: 2px;
-    position: relative;
   }
   .bar-fill.dim {
     background: linear-gradient(90deg, #333, #444);
@@ -549,7 +543,7 @@
     border: 1px solid var(--orange);
     filter: brightness(0.85) contrast(1.1);
   }
-  /* ===== PÁGINA 6 — CTA ===== */
+  /* ===== PÁGINA 6 — CTA LIONXSECURITY ===== */
   .cta-page {
     background: #000;
   }
@@ -642,15 +636,22 @@
     text-transform: uppercase;
     margin-bottom: 8px;
   }
-  .cta-action .keyword {
+  /* --- BOTÓN MEJORADO CON ENLACE REAL --- */
+  .cta-action .keyword-link {
+    display: inline-block;
     font-family: 'Orbitron', sans-serif;
     font-size: 38px;
     font-weight: 900;
     color: var(--orange);
     text-shadow: 0 0 20px rgba(255,102,0,0.6);
     letter-spacing: 8px;
-    display: block;
+    text-decoration: none;
     margin-bottom: 8px;
+    transition: opacity 0.2s;
+  }
+  .cta-action .keyword-link:hover {
+    opacity: 0.8;
+    text-decoration: underline wavy var(--orange);
   }
   .cta-action .cta-footer-text {
     font-size: 12px;
@@ -684,6 +685,8 @@
     .page { margin: 0; page-break-after: always; box-shadow: none; }
     .page::before { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    a { text-decoration: none; color: inherit; }
+    .cta-action .keyword-link { text-decoration: none; }
   }
   @page {
     size: A4 portrait;
@@ -692,7 +695,7 @@
 </style>
 </head>
 <body>
-<!-- PÁGINA 1 — PORTADA (mejorada con copy más potente) -->
+<!-- PÁGINA 1 — PORTADA -->
 <div class="page cover">
   <div class="corner-tl"></div>
   <div class="corner-br"></div>
@@ -731,7 +734,7 @@
   <div class="page-num">01 / 06</div>
 </div>
 
-<!-- PÁGINA 2 — ¿QUÉ ES? (con datos más contundentes) -->
+<!-- PÁGINA 2 — ¿QUÉ ES? -->
 <div class="page">
   <div class="corner-tl"></div>
   <div class="corner-br"></div>
@@ -775,7 +778,7 @@
   <div class="page-num">02 / 06</div>
 </div>
 
-<!-- PÁGINA 3 — IMPACTO GLOBAL (imagen profesional reemplazada) -->
+<!-- PÁGINA 3 — IMPACTO GLOBAL -->
 <div class="page">
   <div class="corner-tl"></div>
   <div class="corner-br"></div>
@@ -800,9 +803,8 @@
         <span class="desc">profesionales faltan<br>para cubrir la demanda</span>
       </div>
     </div>
-    <!-- NUEVA IMAGEN PROFESIONAL: panel de control SOC / mapa de ciberamenazas realista -->
     <div class="img-block">
-      <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1934&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Centro de operaciones de ciberseguridad (SOC) - monitorización de amenazas globales" style="max-height:52mm; width:100%; object-fit:cover;">
+      <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1934&auto=format&fit=crop" alt="Centro de operaciones de ciberseguridad (SOC) - monitorización de amenazas globales" style="max-height:52mm; width:100%; object-fit:cover;">
       <div class="img-caption">// Centro de Operaciones de Seguridad (SOC) — vigilancia 24/7 contra amenazas globales</div>
     </div>
     <div class="highlight-box">
@@ -820,7 +822,7 @@
   <div class="page-num">03 / 06</div>
 </div>
 
-<!-- PÁGINA 4 — SALARIOS (datos optimizados) -->
+<!-- PÁGINA 4 — SALARIOS -->
 <div class="page">
   <div class="corner-tl"></div>
   <div class="corner-br"></div>
@@ -862,7 +864,7 @@
   <div class="page-num">04 / 06</div>
 </div>
 
-<!-- PÁGINA 5 — TRABAJO REMOTO + ROLES (texto pulido) -->
+<!-- PÁGINA 5 — TRABAJO REMOTO + ROLES -->
 <div class="page">
   <div class="corner-tl"></div>
   <div class="corner-br"></div>
@@ -899,7 +901,7 @@
   <div class="page-num">05 / 06</div>
 </div>
 
-<!-- PÁGINA 6 — CTA LIONXSECURITY (copy definitivo) -->
+<!-- PÁGINA 6 — CTA LIONXSECURITY CON ENLACE REAL -->
 <div class="page cta-page">
   <div class="corner-tl"></div>
   <div class="corner-br"></div>
@@ -923,8 +925,9 @@
       <p>Nuestros alumnos han conseguido empleo en empresas como <strong>Telefónica, Deloitte, Santander, Entelgy y muchas más</strong>. El cambio es posible con una guía adecuada y constancia.</p>
     </div>
     <div class="cta-action">
-      <div class="instruction">// Primeros pasos — escribe en nuestro canal la palabra:</div>
-      <span class="keyword">EMPIEZA</span>
+      <div class="instruction">// Primera consulta gratuita — agenda directamente aquí:</div>
+      <!-- ENLACE ACTUALIZADO SEGÚN SOLICITUD -->
+      <a href="https://cal.com/lionxsecurity-gmg0n1/30min" target="_blank" class="keyword-link">EMPIEZA</a>
       <p class="cta-footer-text">
         Te regalamos una consultoría inicial gratuita para analizar tu perfil, resolver dudas y diseñar tu plan de entrada al sector.
       </p>
